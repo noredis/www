@@ -38,20 +38,42 @@ func Register(
 	}
 }
 
+func RestoreAccount(
+	id uuid.UUID,
+	fullName vo.FullName,
+	email vo.Email,
+	username vo.Username,
+	password vo.Password,
+	createdAt time.Time,
+	passwordUpdatedAt time.Time,
+	emailConfirmedAt *time.Time,
+) *Account {
+	return &Account{
+		id:                id,
+		fullName:          fullName,
+		email:             email,
+		username:          username,
+		password:          password,
+		createdAt:         createdAt,
+		passwordUpdatedAt: passwordUpdatedAt,
+		emailConfirmedAt:  emailConfirmedAt,
+	}
+}
+
 func (a *Account) ID() uuid.UUID {
 	return a.id
 }
 
-func (a *Account) FullName() string {
-	return a.fullName.Value()
+func (a *Account) FullName() vo.FullName {
+	return a.fullName
 }
 
-func (a *Account) Email() string {
-	return a.email.Value()
+func (a *Account) Email() vo.Email {
+	return a.email
 }
 
-func (a *Account) Username() string {
-	return a.username.Value()
+func (a *Account) Username() vo.Username {
+	return a.username
 }
 
 func (a *Account) Password() vo.Password {

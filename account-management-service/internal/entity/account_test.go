@@ -36,9 +36,29 @@ func TestAccount(t *testing.T) {
 			account := Register(id, *fullName, *email, *username, *password, now)
 
 			So(account.ID(), ShouldEqual, id)
-			So(account.FullName(), ShouldEqual, f)
-			So(account.Email(), ShouldEqual, e)
-			So(account.Username(), ShouldEqual, u)
+			So(account.FullName().Value(), ShouldEqual, f)
+			So(account.Email().Value(), ShouldEqual, e)
+			So(account.Username().Value(), ShouldEqual, u)
+			So(account.Password().Compare(p), ShouldBeTrue)
+			So(account.CreatedAt(), ShouldEqual, now)
+			So(account.PasswordUpdatedAt(), ShouldEqual, now)
+			So(account.EmailConfirmedAt(), ShouldBeNil)
+
+			account = RestoreAccount(
+				account.ID(),
+				account.FullName(),
+				account.Email(),
+				account.Username(),
+				account.Password(),
+				account.CreatedAt(),
+				account.PasswordUpdatedAt(),
+				account.EmailConfirmedAt(),
+			)
+
+			So(account.ID(), ShouldEqual, id)
+			So(account.FullName().Value(), ShouldEqual, f)
+			So(account.Email().Value(), ShouldEqual, e)
+			So(account.Username().Value(), ShouldEqual, u)
 			So(account.Password().Compare(p), ShouldBeTrue)
 			So(account.CreatedAt(), ShouldEqual, now)
 			So(account.PasswordUpdatedAt(), ShouldEqual, now)
