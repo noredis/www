@@ -16,6 +16,7 @@ func TestFullName(t *testing.T) {
 			f, err := NewFullName(fullName)
 
 			So(errors.Is(err, failure.EmptyFullNameError{}), ShouldBeTrue)
+			So(err.Error(), ShouldEqual, failure.EmptyFullNameError{}.Error())
 			So(f, ShouldBeNil)
 		})
 

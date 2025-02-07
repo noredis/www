@@ -6,12 +6,12 @@ type FullName struct {
 	value string
 }
 
-func NewFullName(value string) (*FullName, error) {
-	if value == "" {
+func NewFullName(fullName string) (*FullName, error) {
+	if fullName == "" {
 		return nil, failure.EmptyFullNameError{}
 	}
 
-	return &FullName{value: value}, nil
+	return &FullName{value: fullName}, nil
 }
 
 func (f FullName) Value() string {
