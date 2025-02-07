@@ -60,6 +60,15 @@ func NewPassword(password string, passwordConfirmation string) (*Password, error
 	return &Password{password}, nil
 }
 
+func RestorePassword(password string) (*Password, error) {
+	_, err := bcrypt.Cost([]byte(password))
+	if err != nil {
+		return nil, failure.UnableToRestorePasswordError{}
+	}
+
+	return &Password{password}, nil
+}
+
 func hash(password string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
 	return string(bytes), err

@@ -151,6 +151,20 @@ func TestPassword(t *testing.T) {
 			So(err, ShouldBeNil)
 			So(p.Value(), ShouldNotEqual, password)
 			So(p.Compare(password), ShouldBeTrue)
+
+			p, err = RestorePassword(p.Value())
+
+			So(err, ShouldBeNil)
+			So(p.Value(), ShouldNotEqual, password)
+		})
+
+		Convey("Restore not hashed password", func() {
+			const password = "Giv3MeF!ve"
+			p, err := RestorePassword(password)
+
+			So(errors.Is(err, failure.UnableToRestorePasswordError{}), ShouldBeTrue)
+			So(err.Error(), ShouldEqual, failure.UnableToRestorePasswordError{}.Error())
+			So(p, ShouldBeNil)
 		})
 	})
 }

@@ -35,3 +35,9 @@ type UnableToHashPasswordError struct{}
 func (e UnableToHashPasswordError) Error() string {
 	return "unable to hash password"
 }
+
+type UnableToRestorePasswordError struct{}
+
+func (e UnableToRestorePasswordError) Error() string {
+	return "unable to restore password"
+}
