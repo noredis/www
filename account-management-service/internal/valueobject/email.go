@@ -9,12 +9,12 @@ type Email struct {
 	value string
 }
 
-func NewEmail(value string) (*Email, error) {
-	if value == "" {
+func NewEmail(email string) (*Email, error) {
+	if email == "" {
 		return nil, failure.EmptyEmailError{}
 	}
 
-	addr, err := mail.ParseAddress(value)
+	addr, err := mail.ParseAddress(email)
 	if err != nil {
 		return nil, failure.InvalidEmailError{}
 	}

@@ -16,6 +16,7 @@ func TestEmail(t *testing.T) {
 			e, err := NewEmail(email)
 
 			So(errors.Is(err, failure.EmptyEmailError{}), ShouldBeTrue)
+			So(err.Error(), ShouldEqual, failure.EmptyEmailError{}.Error())
 			So(e, ShouldBeNil)
 		})
 
@@ -25,6 +26,7 @@ func TestEmail(t *testing.T) {
 			e, err := NewEmail(email)
 
 			So(errors.Is(err, failure.InvalidEmailError{}), ShouldBeTrue)
+			So(err.Error(), ShouldEqual, failure.InvalidEmailError{}.Error())
 			So(e, ShouldBeNil)
 		})
 
