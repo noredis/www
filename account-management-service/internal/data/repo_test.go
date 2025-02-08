@@ -40,6 +40,11 @@ func TestAccountRepository(t *testing.T) {
 
 			So(err, ShouldBeNil)
 			So(account.ID(), ShouldEqual, id)
+
+			account, err = repo.GetByUsername(context.Background(), username.Value())
+
+			So(err, ShouldBeNil)
+			So(account.ID(), ShouldEqual, id)
 		})
 
 		Convey("Get non-existing account", func() {
@@ -56,6 +61,13 @@ func TestAccountRepository(t *testing.T) {
 			email := "alexey.rachkov@gmail.com"
 
 			account, err = repo.GetByEmail(context.Background(), email)
+
+			So(err, ShouldNotBeNil)
+			So(account, ShouldBeNil)
+
+			username := "alexey.rachkov"
+
+			account, err = repo.GetByUsername(context.Background(), username)
 
 			So(err, ShouldNotBeNil)
 			So(account, ShouldBeNil)

@@ -25,12 +25,13 @@ func NewAccountRepository(db DBClient) *AccountRepository {
 func (r AccountRepository) GetByID(ctx context.Context, id uuid.UUID) (*entity.Account, error) {
 	return r.getBy(ctx, "id", id)
 }
+
 func (r AccountRepository) GetByEmail(ctx context.Context, email string) (*entity.Account, error) {
 	return r.getBy(ctx, "email", email)
 }
 
-func (r AccountRepository) GetByUsername(ctx context.Context, username string) *entity.Account {
-	return nil
+func (r AccountRepository) GetByUsername(ctx context.Context, username string) (*entity.Account, error) {
+	return r.getBy(ctx, "username", username)
 }
 
 func (r AccountRepository) getBy(ctx context.Context, field string, value interface{}) (*entity.Account, error) {
