@@ -30,6 +30,23 @@ func TestAccountRepository(t *testing.T) {
 			err := repo.Create(context.Background(), *account)
 
 			So(err, ShouldBeNil)
+
+			account, err = repo.GetByID(context.Background(), id)
+
+			So(err, ShouldBeNil)
+			So(account.ID(), ShouldEqual, id)
+		})
+
+		Convey("Get non-existing account", func() {
+			postgres := testingpg.NewWithIsolatedDatabase(t)
+			repo := NewAccountRepository(postgres.DB())
+
+			id, _ := uuid.NewUUID()
+
+			account, err := repo.GetByID(context.Background(), id)
+
+			So(err, ShouldNotBeNil)
+			So(account, ShouldBeNil)
 		})
 	})
 }
