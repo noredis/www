@@ -1,6 +1,7 @@
 package entity
 
 import (
+	"account-management-service/internal/domainevent"
 	vo "account-management-service/internal/valueobject"
 	"time"
 
@@ -8,7 +9,6 @@ import (
 )
 
 type Account struct {
-	id                uuid.UUID
 	fullName          vo.FullName
 	email             vo.Email
 	username          vo.Username
@@ -16,6 +16,7 @@ type Account struct {
 	createdAt         time.Time
 	passwordUpdatedAt time.Time
 	emailConfirmedAt  *time.Time
+	entity
 }
 
 func Register(
@@ -26,8 +27,8 @@ func Register(
 	password vo.Password,
 	now time.Time,
 ) *Account {
-	return &Account{
-		id:                id,
+	account := &Account{
+		entity:            entity{id: id},
 		fullName:          fullName,
 		email:             email,
 		username:          username,
@@ -36,6 +37,10 @@ func Register(
 		passwordUpdatedAt: now,
 		emailConfirmedAt:  nil,
 	}
+
+	account.raiseDomainEvent(domainevent.NewAccountCreatedEvent(id, fullName, email, username))
+
+	return account
 }
 
 func RestoreAccount(
@@ -49,7 +54,7 @@ func RestoreAccount(
 	emailConfirmedAt *time.Time,
 ) *Account {
 	return &Account{
-		id:                id,
+		entity:            entity{id: id},
 		fullName:          fullName,
 		email:             email,
 		username:          username,
@@ -58,10 +63,6 @@ func RestoreAccount(
 		passwordUpdatedAt: passwordUpdatedAt,
 		emailConfirmedAt:  emailConfirmedAt,
 	}
-}
-
-func (a *Account) ID() uuid.UUID {
-	return a.id
 }
 
 func (a *Account) FullName() vo.FullName {

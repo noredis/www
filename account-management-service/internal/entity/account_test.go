@@ -1,6 +1,7 @@
 package entity
 
 import (
+	"account-management-service/internal/domainevent"
 	vo "account-management-service/internal/valueobject"
 	"github.com/google/uuid"
 	"testing"
@@ -43,6 +44,15 @@ func TestAccount(t *testing.T) {
 			So(account.CreatedAt(), ShouldEqual, now)
 			So(account.PasswordUpdatedAt(), ShouldEqual, now)
 			So(account.EmailConfirmedAt(), ShouldBeNil)
+
+			accountEvents := make([]domainevent.DomainEvent, 0)
+			accountEvents = append(accountEvents, domainevent.NewAccountCreatedEvent(id, *fullName, *email, *username))
+
+			So(account.DomainEvents(), ShouldEqual, accountEvents)
+
+			account.ClearDomainEvents()
+
+			So(account.DomainEvents(), ShouldBeEmpty)
 
 			account = RestoreAccount(
 				account.ID(),
