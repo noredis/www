@@ -11,3 +11,9 @@ type InvalidEmailError struct{}
 func (e InvalidEmailError) Error() string {
 	return "invalid email address"
 }
+
+type EmailIsBusyError struct{}
+
+func (e EmailIsBusyError) Error() string {
+	return "email address is busy"
+}

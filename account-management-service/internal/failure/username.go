@@ -23,3 +23,9 @@ type UsernameTooLongError struct{}
 func (e UsernameTooLongError) Error() string {
 	return "username must be less than 20 characters"
 }
+
+type UsernameIsBusyError struct{}
+
+func (e UsernameIsBusyError) Error() string {
+	return "username is busy"
+}
