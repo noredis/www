@@ -5,6 +5,7 @@ import (
 	vo "account-management-service/internal/valueobject"
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
 	"github.com/google/uuid"
 )
@@ -64,6 +65,9 @@ func (r AccountRepository) getBy(ctx context.Context, field string, value interf
 		&account.PasswordUpdatedAt,
 		&account.EmailConfirmedAt,
 	)
+	if errors.Is(err, sql.ErrNoRows) {
+		return nil, nil
+	}
 	if err != nil {
 		const format = "failed selection of Account from database: %v"
 		return nil, fmt.Errorf(format, err)

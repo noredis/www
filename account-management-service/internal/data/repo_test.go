@@ -55,21 +55,21 @@ func TestAccountRepository(t *testing.T) {
 
 			account, err := repo.GetByID(context.Background(), id)
 
-			So(err, ShouldNotBeNil)
+			So(err, ShouldBeNil)
 			So(account, ShouldBeNil)
 
 			email := "alexey.rachkov@gmail.com"
 
 			account, err = repo.GetByEmail(context.Background(), email)
 
-			So(err, ShouldNotBeNil)
+			So(err, ShouldBeNil)
 			So(account, ShouldBeNil)
 
 			username := "alexey.rachkov"
 
 			account, err = repo.GetByUsername(context.Background(), username)
 
-			So(err, ShouldNotBeNil)
+			So(err, ShouldBeNil)
 			So(account, ShouldBeNil)
 		})
 	})
