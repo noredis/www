@@ -81,7 +81,10 @@ func (acs *AccountService) CreateAccount(ctx context.Context, dto CreateAccountD
 	}
 
 	for _, e := range account.DomainEvents() {
-		acs.publisher.Publish(e)
+		err = acs.publisher.Publish(e)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return &AccountDTO{
