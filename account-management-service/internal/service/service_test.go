@@ -17,8 +17,9 @@ func TestAccountService(t *testing.T) {
 			postgres := testingpg.NewWithIsolatedDatabase(t)
 			repo := data.NewAccountRepository(postgres.DB())
 			publisher := data.NewFakePublisher()
+			accountContext := NewAccountContextImp(repo, publisher)
 
-			service := NewAccountService(repo, publisher)
+			service := NewAccountService(repo, accountContext)
 
 			dto := CreateAccountDTO{
 				FullName:             "John Doe",
@@ -70,8 +71,9 @@ func TestAccountService(t *testing.T) {
 				postgres := testingpg.NewWithIsolatedDatabase(t)
 				repo := data.NewAccountRepository(postgres.DB())
 				publisher := data.NewFakePublisher()
+				accountContext := NewAccountContextImp(repo, publisher)
 
-				service := NewAccountService(repo, publisher)
+				service := NewAccountService(repo, accountContext)
 
 				dto := CreateAccountDTO{
 					FullName:             "",
@@ -92,8 +94,9 @@ func TestAccountService(t *testing.T) {
 				postgres := testingpg.NewWithIsolatedDatabase(t)
 				repo := data.NewAccountRepository(postgres.DB())
 				publisher := data.NewFakePublisher()
+				accountContext := NewAccountContextImp(repo, publisher)
 
-				service := NewAccountService(repo, publisher)
+				service := NewAccountService(repo, accountContext)
 
 				dto := CreateAccountDTO{
 					FullName:             "John Doe",
@@ -114,8 +117,9 @@ func TestAccountService(t *testing.T) {
 				postgres := testingpg.NewWithIsolatedDatabase(t)
 				repo := data.NewAccountRepository(postgres.DB())
 				publisher := data.NewFakePublisher()
+				accountContext := NewAccountContextImp(repo, publisher)
 
-				service := NewAccountService(repo, publisher)
+				service := NewAccountService(repo, accountContext)
 
 				dto := CreateAccountDTO{
 					FullName:             "John Doe",
@@ -136,8 +140,9 @@ func TestAccountService(t *testing.T) {
 				postgres := testingpg.NewWithIsolatedDatabase(t)
 				repo := data.NewAccountRepository(postgres.DB())
 				publisher := data.NewFakePublisher()
+				accountContext := NewAccountContextImp(repo, publisher)
 
-				service := NewAccountService(repo, publisher)
+				service := NewAccountService(repo, accountContext)
 
 				dto := CreateAccountDTO{
 					FullName:             "John Doe",

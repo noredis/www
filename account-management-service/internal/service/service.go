@@ -16,17 +16,17 @@ type AccountRepository interface {
 	Create(ctx context.Context, account entity.Account) error
 }
 
-type Publisher interface {
-	Publish(message any) error
+type AccountContext interface {
+	SaveChanges(ctx context.Context, account entity.Account) error
 }
 
 type AccountService struct {
 	accountRepository AccountRepository
-	publisher         Publisher
+	accountContext    AccountContext
 }
 
-func NewAccountService(accountRepository AccountRepository, publisher Publisher) *AccountService {
-	return &AccountService{accountRepository: accountRepository, publisher: publisher}
+func NewAccountService(accountRepository AccountRepository, accountContext AccountContext) *AccountService {
+	return &AccountService{accountRepository: accountRepository, accountContext: accountContext}
 }
 
 func (acs *AccountService) CreateAccount(ctx context.Context, dto CreateAccountDTO) (*AccountDTO, error) {
@@ -75,16 +75,9 @@ func (acs *AccountService) CreateAccount(ctx context.Context, dto CreateAccountD
 
 	account := entity.Register(id, *fullName, *email, *username, *password, now)
 
-	err = acs.accountRepository.Create(ctx, *account)
+	err = acs.accountContext.SaveChanges(ctx, *account)
 	if err != nil {
 		return nil, err
-	}
-
-	for _, e := range account.DomainEvents() {
-		err = acs.publisher.Publish(e)
-		if err != nil {
-			return nil, err
-		}
 	}
 
 	return &AccountDTO{
