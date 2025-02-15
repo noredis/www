@@ -1,8 +1,8 @@
 package service
 
 import (
+	failure2 "account-management-service/internal/core/failure"
 	"account-management-service/internal/data"
-	"account-management-service/internal/failure"
 	"account-management-service/pkg/testingpg"
 	"context"
 	"errors"
@@ -46,8 +46,8 @@ func TestAccountService(t *testing.T) {
 
 				account, err = service.CreateAccount(context.Background(), dto)
 
-				So(errors.Is(err, failure.EmailIsBusyError{}), ShouldBeTrue)
-				So(err.Error(), ShouldEqual, failure.EmailIsBusyError{}.Error())
+				So(errors.Is(err, failure2.EmailIsBusyError{}), ShouldBeTrue)
+				So(err.Error(), ShouldEqual, failure2.EmailIsBusyError{}.Error())
 				So(account, ShouldBeNil)
 			})
 
@@ -62,8 +62,8 @@ func TestAccountService(t *testing.T) {
 
 				account, err = service.CreateAccount(context.Background(), dto)
 
-				So(errors.Is(err, failure.UsernameIsBusyError{}), ShouldBeTrue)
-				So(err.Error(), ShouldEqual, failure.UsernameIsBusyError{}.Error())
+				So(errors.Is(err, failure2.UsernameIsBusyError{}), ShouldBeTrue)
+				So(err.Error(), ShouldEqual, failure2.UsernameIsBusyError{}.Error())
 				So(account, ShouldBeNil)
 			})
 

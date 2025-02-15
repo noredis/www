@@ -1,7 +1,7 @@
 package entity
 
 import (
-	"account-management-service/internal/domainevent"
+	"account-management-service/internal/domain/domainevent"
 	"github.com/google/uuid"
 )
 

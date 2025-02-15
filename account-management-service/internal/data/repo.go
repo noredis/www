@@ -1,8 +1,8 @@
 package data
 
 import (
-	"account-management-service/internal/entity"
-	vo "account-management-service/internal/valueobject"
+	"account-management-service/internal/domain/entity"
+	vo2 "account-management-service/internal/domain/valueobject"
 	"context"
 	"database/sql"
 	"errors"
@@ -73,22 +73,22 @@ func (r AccountRepository) getBy(ctx context.Context, field string, value interf
 		return nil, fmt.Errorf(format, err)
 	}
 
-	fullName, err := vo.NewFullName(account.FullName)
+	fullName, err := vo2.NewFullName(account.FullName)
 	if err != nil {
 		return nil, err
 	}
 
-	email, err := vo.NewEmail(account.Email)
+	email, err := vo2.NewEmail(account.Email)
 	if err != nil {
 		return nil, err
 	}
 
-	username, err := vo.NewUsername(account.Username)
+	username, err := vo2.NewUsername(account.Username)
 	if err != nil {
 		return nil, err
 	}
 
-	password, err := vo.RestorePassword(account.Password)
+	password, err := vo2.RestorePassword(account.Password)
 	if err != nil {
 		return nil, err
 	}

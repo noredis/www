@@ -1,8 +1,8 @@
 package data
 
 import (
-	"account-management-service/internal/entity"
-	vo "account-management-service/internal/valueobject"
+	"account-management-service/internal/domain/entity"
+	vo2 "account-management-service/internal/domain/valueobject"
 	"account-management-service/pkg/testingpg"
 	"context"
 	"github.com/google/uuid"
@@ -19,10 +19,10 @@ func TestAccountRepository(t *testing.T) {
 			repo := NewAccountRepository(postgres.DB())
 
 			id, _ := uuid.NewUUID()
-			fullName, _ := vo.NewFullName("Alexey Rachkov")
-			email, _ := vo.NewEmail("alexey.rachkov@gmail.com")
-			username, _ := vo.NewUsername("a.rachkov")
-			password, _ := vo.NewPassword("pas5W$rd", "pas5W$rd")
+			fullName, _ := vo2.NewFullName("Alexey Rachkov")
+			email, _ := vo2.NewEmail("alexey.rachkov@gmail.com")
+			username, _ := vo2.NewUsername("a.rachkov")
+			password, _ := vo2.NewPassword("pas5W$rd", "pas5W$rd")
 			now := time.Now()
 
 			account := entity.Register(id, *fullName, *email, *username, *password, now)

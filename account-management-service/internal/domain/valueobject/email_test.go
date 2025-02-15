@@ -1,7 +1,7 @@
 package vo
 
 import (
-	"account-management-service/internal/failure"
+	"account-management-service/internal/core/failure"
 	"errors"
 	"testing"
 

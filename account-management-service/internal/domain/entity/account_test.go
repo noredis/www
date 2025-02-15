@@ -1,8 +1,8 @@
 package entity
 
 import (
-	"account-management-service/internal/domainevent"
-	vo "account-management-service/internal/valueobject"
+	domainevent2 "account-management-service/internal/domain/domainevent"
+	vo2 "account-management-service/internal/domain/valueobject"
 	"github.com/google/uuid"
 	"testing"
 	"time"
@@ -17,19 +17,19 @@ func TestAccount(t *testing.T) {
 			So(err, ShouldBeNil)
 
 			const f = "Alexey Rachkov"
-			fullName, err := vo.NewFullName(f)
+			fullName, err := vo2.NewFullName(f)
 			So(err, ShouldBeNil)
 
 			const e = "alexey.rachkov@gmail.com"
-			email, err := vo.NewEmail(e)
+			email, err := vo2.NewEmail(e)
 			So(err, ShouldBeNil)
 
 			const u = "a.rachkov"
-			username, err := vo.NewUsername(u)
+			username, err := vo2.NewUsername(u)
 			So(err, ShouldBeNil)
 
 			const p = "pas5W$rd"
-			password, err := vo.NewPassword(p, p)
+			password, err := vo2.NewPassword(p, p)
 			So(err, ShouldBeNil)
 
 			now := time.Now()
@@ -45,8 +45,8 @@ func TestAccount(t *testing.T) {
 			So(account.PasswordUpdatedAt(), ShouldEqual, now)
 			So(account.EmailConfirmedAt(), ShouldBeNil)
 
-			accountEvents := make([]domainevent.DomainEvent, 0)
-			accountEvents = append(accountEvents, domainevent.NewAccountCreatedEvent(id, *fullName, *email, *username))
+			accountEvents := make([]domainevent2.DomainEvent, 0)
+			accountEvents = append(accountEvents, domainevent2.NewAccountCreatedEvent(id, *fullName, *email, *username))
 
 			So(account.DomainEvents(), ShouldEqual, accountEvents)
 

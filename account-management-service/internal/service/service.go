@@ -1,9 +1,9 @@
 package service
 
 import (
-	"account-management-service/internal/entity"
-	"account-management-service/internal/failure"
-	vo "account-management-service/internal/valueobject"
+	failure2 "account-management-service/internal/core/failure"
+	"account-management-service/internal/domain/entity"
+	vo2 "account-management-service/internal/domain/valueobject"
 	"context"
 	"github.com/google/uuid"
 	"time"
@@ -35,12 +35,12 @@ func (acs *AccountService) CreateAccount(ctx context.Context, dto CreateAccountD
 		return nil, err
 	}
 
-	fullName, err := vo.NewFullName(dto.FullName)
+	fullName, err := vo2.NewFullName(dto.FullName)
 	if err != nil {
 		return nil, err
 	}
 
-	email, err := vo.NewEmail(dto.Email)
+	email, err := vo2.NewEmail(dto.Email)
 	if err != nil {
 		return nil, err
 	}
@@ -50,10 +50,10 @@ func (acs *AccountService) CreateAccount(ctx context.Context, dto CreateAccountD
 		return nil, err
 	}
 	if existing != nil {
-		return nil, failure.EmailIsBusyError{}
+		return nil, failure2.EmailIsBusyError{}
 	}
 
-	username, err := vo.NewUsername(dto.Username)
+	username, err := vo2.NewUsername(dto.Username)
 	if err != nil {
 		return nil, err
 	}
@@ -63,10 +63,10 @@ func (acs *AccountService) CreateAccount(ctx context.Context, dto CreateAccountD
 		return nil, err
 	}
 	if existing != nil {
-		return nil, failure.UsernameIsBusyError{}
+		return nil, failure2.UsernameIsBusyError{}
 	}
 
-	password, err := vo.NewPassword(dto.Password, dto.PasswordConfirmation)
+	password, err := vo2.NewPassword(dto.Password, dto.PasswordConfirmation)
 	if err != nil {
 		return nil, err
 	}

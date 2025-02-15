@@ -1,6 +1,8 @@
 package vo
 
-import "account-management-service/internal/failure"
+import (
+	"account-management-service/internal/core/failure"
+)
 
 type FullName struct {
 	value string

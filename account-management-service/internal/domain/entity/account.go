@@ -1,18 +1,18 @@
 package entity
 
 import (
-	"account-management-service/internal/domainevent"
-	vo "account-management-service/internal/valueobject"
+	"account-management-service/internal/domain/domainevent"
+	vo2 "account-management-service/internal/domain/valueobject"
 	"time"
 
 	"github.com/google/uuid"
 )
 
 type Account struct {
-	fullName          vo.FullName
-	email             vo.Email
-	username          vo.Username
-	password          vo.Password
+	fullName          vo2.FullName
+	email             vo2.Email
+	username          vo2.Username
+	password          vo2.Password
 	createdAt         time.Time
 	passwordUpdatedAt time.Time
 	emailConfirmedAt  *time.Time
@@ -21,10 +21,10 @@ type Account struct {
 
 func Register(
 	id uuid.UUID,
-	fullName vo.FullName,
-	email vo.Email,
-	username vo.Username,
-	password vo.Password,
+	fullName vo2.FullName,
+	email vo2.Email,
+	username vo2.Username,
+	password vo2.Password,
 	now time.Time,
 ) *Account {
 	account := &Account{
@@ -45,10 +45,10 @@ func Register(
 
 func RestoreAccount(
 	id uuid.UUID,
-	fullName vo.FullName,
-	email vo.Email,
-	username vo.Username,
-	password vo.Password,
+	fullName vo2.FullName,
+	email vo2.Email,
+	username vo2.Username,
+	password vo2.Password,
 	createdAt time.Time,
 	passwordUpdatedAt time.Time,
 	emailConfirmedAt *time.Time,
@@ -65,19 +65,19 @@ func RestoreAccount(
 	}
 }
 
-func (a *Account) FullName() vo.FullName {
+func (a *Account) FullName() vo2.FullName {
 	return a.fullName
 }
 
-func (a *Account) Email() vo.Email {
+func (a *Account) Email() vo2.Email {
 	return a.email
 }
 
-func (a *Account) Username() vo.Username {
+func (a *Account) Username() vo2.Username {
 	return a.username
 }
 
-func (a *Account) Password() vo.Password {
+func (a *Account) Password() vo2.Password {
 	return a.password
 }
 

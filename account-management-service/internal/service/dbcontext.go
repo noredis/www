@@ -1,7 +1,7 @@
 package service
 
 import (
-	"account-management-service/internal/entity"
+	"account-management-service/internal/domain/entity"
 	"context"
 )
 

@@ -1,7 +1,7 @@
 package domainevent
 
 import (
-	vo "account-management-service/internal/valueobject"
+	vo2 "account-management-service/internal/domain/valueobject"
 	"github.com/google/uuid"
 	"testing"
 
@@ -11,9 +11,9 @@ import (
 func TestAccountCreatedEvent(t *testing.T) {
 	Convey("Test account created event", t, func() {
 		id, _ := uuid.NewUUID()
-		fullName, _ := vo.NewFullName("Alexey Rachkov")
-		email, _ := vo.NewEmail("alexey@gmail.com")
-		username, _ := vo.NewUsername("alexey")
+		fullName, _ := vo2.NewFullName("Alexey Rachkov")
+		email, _ := vo2.NewEmail("alexey@gmail.com")
+		username, _ := vo2.NewUsername("alexey")
 
 		e := NewAccountCreatedEvent(id, *fullName, *email, *username)
 
